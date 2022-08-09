@@ -18,6 +18,7 @@ function game() {
 }
 
 function playRound(e) {
+    deactivatePlayerButtons()
     const playerButton = e.target
     const playerChoice = +playerButton.getAttribute("value")
     const computerChoice = getComputerChoice()
@@ -31,6 +32,7 @@ function playRound(e) {
         updatePageScore()
         playerButton.blur()
         computerButton.classList.remove("ai-chosen")
+        activatePlayerButtons()
     }, 1500)
 }
 
@@ -69,6 +71,12 @@ function incrementWinnerScore(playerChoice, computerChoice) {
 function activatePlayerButtons() {
     document.querySelectorAll(".player-buttons > button").forEach( btn => {
         btn.addEventListener("click", playRound)
+    })
+}
+
+function deactivatePlayerButtons() {
+    document.querySelectorAll(".player-buttons > button").forEach( btn => {
+        btn.removeEventListener("click", playRound)
     })
 }
 
