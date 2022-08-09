@@ -1,0 +1,75 @@
+* {
+    box-sizing: border-box;
+    font-size: 48px;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 5px 5px 15px grey;
+    width: fit-content;
+    padding: 35px 15px;
+    border-radius: 6px;
+}
+
+.restart, .start {
+    text-transform: uppercase;
+    margin: 15px 15px 30px;
+}
+
+.restart {
+    display: none;
+}
+
+.out-of {
+
+    color: dimgray;
+}
+
+.score {
+    font-size: 0.8em;
+}
+
+button {
+    font-size: 24px;
+    background: #E7F6F2;
+    border: none;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.interactive {
+    cursor: pointer;
+    transition: all 0.09s;
+}
+
+.interactive:hover {
+    background: #A5C9CA;
+}
+
+.interactive:focus {
+    border: 1px solid #395B64;
+    background: #A5C9CA;
+}
+
+.ai-chosen {
+    border: 1px solid #395B64;
+    background: #A5C9CA;
+}
+
+.player-wins, .computer-wins {
+    color: #579192;
+    text-transform: uppercase;
+    font-size: 18px;
+    visibility: hidden;
+}
+
+.computer-wins {
+    margin-top: 13px;
+}

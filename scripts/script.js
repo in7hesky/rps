@@ -1,54 +1,81 @@
 console.log("hello")
 
-const POSSIBLE_CHOICES = ["Rock", "Paper", "Scissors"]
+document.querySelector(".start").addEventListener("click", game)
 
-game()
+const ROUNDS_LIMIT = 2
+
+let playerScore = 0;
+let computerScore = 0;
 
 function game() {
-    let playerScore = 0
-    
-    for (let i = 0; i < 5; i++) {
-        let result = playRound(getComputerChoice(), getPlayerInput())
-        alert(result)
-        if (result.includes("win")) playerScore++
-    }
-    
-    alert(`Game finished! Total score ${playerScore} out of 5`)
+    document.querySelector(".start").remove()
+
+    const restartButton = document.querySelector(".restart")
+    restartButton.style.display = "block";
+    restartButton.addEventListener("click", restart)
+
+    activatePlayerButtons()
 }
 
-function playRound(computerChoice, playerChoice) {
-    let failMessage = `You lose! Your ${playerChoice} vs. ${computerChoice}`
-    let winMessage = `You win! Your ${playerChoice} vs. ${computerChoice}`
-    
-    if (computerChoice === playerChoice) return `Draw! 2x ${playerChoice}`
-    
-    if (computerChoice === POSSIBLE_CHOICES[0] && playerChoice === POSSIBLE_CHOICES[1] ||
-        computerChoice === POSSIBLE_CHOICES[1] && playerChoice === POSSIBLE_CHOICES[2] ||
-        computerChoice === POSSIBLE_CHOICES[2] && playerChoice === POSSIBLE_CHOICES[0]) {
-        return winMessage
+function playRound(e) {
+    const playerButton = e.target
+    const playerChoice = +playerButton.getAttribute("value")
+    const computerChoice = getComputerChoice()
+    const computerButton = document
+        .querySelector(`.computer-buttons > button[value="${computerChoice}"]`)
+
+
+    computerButton.classList.add("ai-chosen")
+    setTimeout(() => {
+        incrementWinnerScore(playerChoice, computerChoice)
+        updatePageScore()
+        playerButton.blur()
+        computerButton.classList.remove("ai-chosen")
+    }, 1500)
+}
+
+function restart() {
+    playerScore = computerScore = 0
+    updatePageScore()
+    document.querySelector(".computer-wins").style.visibility = "hidden";
+    document.querySelector(".player-wins").style.visibility = "hidden";
+    activatePlayerButtons()
+}
+
+function updatePageScore() {
+    document.querySelector(".computer-result .score").textContent = computerScore.toString()
+    document.querySelector(".player-result .score").textContent = playerScore.toString()
+    if (playerScore !== ROUNDS_LIMIT && computerScore !== ROUNDS_LIMIT) return
+
+    let winner = playerScore === ROUNDS_LIMIT ? "player" : "computer"
+    document.querySelector(`.${winner}-wins`).style.visibility = "visible"
+    document.querySelectorAll(".player-buttons button").forEach( btn => {
+        btn.removeEventListener("click", playRound)
+    })
+}
+
+function incrementWinnerScore(playerChoice, computerChoice) {
+    if (computerChoice === playerChoice) return
+
+    if (computerChoice === 1 && playerChoice === 2 ||
+        computerChoice === 2 && playerChoice === 3 ||
+        computerChoice === 3 && playerChoice === 1) {
+        playerScore++
     } else {
-        return failMessage
+        computerScore++
     }
 }
 
-function getPlayerInput() {
-    while (true) {
-        let input = capitalizeFirstChar(prompt("Make your choice:").trim())
-        if (POSSIBLE_CHOICES.indexOf(input) > -1) return input
-        alert("Wrong choice format! Rock, paper, scissors allowed.")
-    }
+function activatePlayerButtons() {
+    document.querySelectorAll(".player-buttons > button").forEach( btn => {
+        btn.addEventListener("click", playRound)
+    })
 }
-
 
 function getComputerChoice() {
-    let choiceNum = getRandomIntInclusive(0, 2)
-    return POSSIBLE_CHOICES[choiceNum]
+    return getRandomIntInclusive(1, 3)
 }
 
 function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
-
-function capitalizeFirstChar(target) {
-    return target.charAt(0).toUpperCase() + target.slice(1).toLowerCase();
-} 

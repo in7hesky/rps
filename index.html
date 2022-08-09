@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>RPS</title>
-    <script src="./scripts/script.js"></script>
+    <link rel="stylesheet" href="./styles/style.css">
+    <script src="./scripts/script.js" defer></script>
 </head>
 <body>
-
+    <div class="container">
+        <button class="start interactive">start</button>
+        <button class="restart interactive">restart</button>
+        <div class="player-wins">wins</div>
+        <div class="player-title">player</div>
+        <div class="player-result">
+            <span class="score">0</span><span class="out-of">/5</span>
+        </div>
+        <div class="player-buttons">
+            <button value="1" class="interactive">Rock</button>
+            <button value="2" class="interactive">Paper</button>
+            <button value="3" class="interactive">Scissors</button>
+        </div>
+        <div class="computer-buttons">
+            <button value="1">Rock</button>
+            <button value="2">Paper</button>
+            <button value="3">Scissors</button>
+        </div>
+        <div class="computer-result">
+            <span class="score">0</span><span class="out-of">/5</span>
+        </div>
+        <div class="computer-title">computer</div>
+        <div class="computer-wins">wins</div>
+    </div>
 </body>
 </html>
