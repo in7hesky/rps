@@ -2,7 +2,7 @@ console.log("hello")
 
 document.querySelector(".start").addEventListener("click", game)
 
-const ROUNDS_LIMIT = 2
+const TARGET_SCORE = 5
 
 let playerScore = 0;
 let computerScore = 0;
@@ -45,9 +45,9 @@ function restart() {
 function updatePageScore() {
     document.querySelector(".computer-result .score").textContent = computerScore.toString()
     document.querySelector(".player-result .score").textContent = playerScore.toString()
-    if (playerScore !== ROUNDS_LIMIT && computerScore !== ROUNDS_LIMIT) return
+    if (playerScore !== TARGET_SCORE && computerScore !== TARGET_SCORE) return
 
-    let winner = playerScore === ROUNDS_LIMIT ? "player" : "computer"
+    let winner = playerScore === TARGET_SCORE ? "player" : "computer"
     document.querySelector(`.${winner}-wins`).style.visibility = "visible"
     document.querySelectorAll(".player-buttons button").forEach( btn => {
         btn.removeEventListener("click", playRound)
