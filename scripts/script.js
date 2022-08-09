@@ -22,24 +22,12 @@ function playRound(computerChoice, playerChoice) {
     
     if (computerChoice === playerChoice) return `Draw! 2x ${playerChoice}`
     
-    if (computerChoice === POSSIBLE_CHOICES[0] ) {
-        if (playerChoice === POSSIBLE_CHOICES[1]) {
-            return winMessage
-        } else {
-            return failMessage
-        }
-    } else if (computerChoice === POSSIBLE_CHOICES[1]) {
-        if (playerChoice === POSSIBLE_CHOICES[2]) {
-            return winMessage
-        } else {
-            return failMessage
-        }
+    if (computerChoice === POSSIBLE_CHOICES[0] && playerChoice === POSSIBLE_CHOICES[1] ||
+        computerChoice === POSSIBLE_CHOICES[1] && playerChoice === POSSIBLE_CHOICES[2] ||
+        computerChoice === POSSIBLE_CHOICES[2] && playerChoice === POSSIBLE_CHOICES[0]) {
+        return winMessage
     } else {
-        if (playerChoice === POSSIBLE_CHOICES[0]) {
-            return winMessage
-        } else {
-            return failMessage
-        }
+        return failMessage
     }
 }
 
