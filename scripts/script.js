@@ -32,7 +32,6 @@ function playRound(e) {
         updatePageScore()
         playerButton.blur()
         computerButton.classList.remove("ai-chosen")
-        activatePlayerButtons()
     }, 1500)
 }
 
@@ -47,13 +46,13 @@ function restart() {
 function updatePageScore() {
     document.querySelector(".computer-result .score").textContent = computerScore.toString()
     document.querySelector(".player-result .score").textContent = playerScore.toString()
-    if (playerScore !== TARGET_SCORE && computerScore !== TARGET_SCORE) return
+    if (playerScore !== TARGET_SCORE && computerScore !== TARGET_SCORE) {
+        activatePlayerButtons()
+        return
+    }
 
     let winner = playerScore === TARGET_SCORE ? "player" : "computer"
     document.querySelector(`.${winner}-wins`).style.visibility = "visible"
-    document.querySelectorAll(".player-buttons button").forEach( btn => {
-        btn.removeEventListener("click", playRound)
-    })
 }
 
 function incrementWinnerScore(playerChoice, computerChoice) {
